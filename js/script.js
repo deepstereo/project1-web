@@ -1,9 +1,5 @@
 function loadCustomers() {
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 863f7e6abdada3e64f99fc797b43d1827ac03fcf
     var xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function () {
@@ -127,3 +123,48 @@ function goHome() {
     document.querySelector(".table").style.display = "none";
 };
 
+
+
+function loadOrderDetails() {
+    var xhttp = new XMLHttpRequest();
+    var productRequest = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            
+            if (document.querySelector("#selectCustomer").innerHTML.length == 0) {
+                
+                var customerArray = JSON.parse(this.responseText);
+                for (var i = 0; i < customerArray.length; i++) {
+                    var option = document.createElement("option");
+                    option.innerHTML = customerArray[i].businessName + ", " + customerArray[i].address;    
+                    document.querySelector("#selectCustomer").appendChild(option);
+                }
+            } else {
+                console.log("customers already loaded");
+            }
+        }
+    };
+
+    productRequest.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+
+            if (document.querySelector("#selectProduct").innerHTML.length == 0) {
+                var productArray = JSON.parse(this.responseText);
+                    for (var i = 0; i < productArray.length; i++) {
+                        var option = document.createElement("option")
+                        option.innerHTML = productArray[i].productName
+                        document.querySelector("#selectProduct").appendChild(option);
+                    }
+            } else {
+                console.log("products already loaded");
+            }
+        }
+    };
+
+    xhttp.open("GET", "https://serene-eyrie-60807.herokuapp.com/customers", true);
+    productRequest.open("GET", "https://serene-eyrie-60807.herokuapp.com/products", true)
+
+    xhttp.send();
+    productRequest.send();
+};
