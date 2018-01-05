@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="MAPD712 - Web Technologies - Project 1 - Web client for b2b coffee sales application">
+    <meta name="author" content="Team: Sergii Kozak, Sergey Sharipov, Yan Romanenko, Timofei Sopin">
+
+    <title>Coffee Coffee</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
+    <link href="css/sticky-footer-navbar.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <header>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-expand-md navbar-light fixed-top">
+          <a class="navbar-brand" href="#"><img src="images/coffee.png" height="30px" alt="Coffee logo" /></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active" id="home">
+                <a class="nav-link" href="#" onclick="goHome()">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item" id="customers">
+                <a class="nav-link" href="#" onclick="loadCustomers()">Customers</a>
+              </li>
+              <li class="nav-item" id="orders">
+                <a class="nav-link" href="#" onclick="loadOrders()">Orders</a>
+              </li>
+              <li class="nav-item" id="products">
+                <a class="nav-link" href="#">Products</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-sm-3 col-md-2 d-none d-sm-block sidebar">
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-toggle="modal" data-target="#addCustomerModal">Create customer</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Create order</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Add product</a>
+            </li>
+          </ul>
+        </nav>
+
+        <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+        <h1 class="main-title">Home</h1>
+          <div id="customer-list"></div>
+          <div class="table-responsive">
+            <table class="table table-striped customer-table" style="display: none">
+              <thead>
+                <tr>
+                  <th>Business Name</th>
+                  <th>Address</th>
+                  <th>Phone number</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              <tbody class="customerTable">
+                <tr class="customer" style="display: none;">
+                  <td class="businessName">Lorem</td>
+                  <td class="address">ipsum</td>
+                  <td class="phone">dolor</td>
+                  <td class="email">sit</td>
+                  <td class=""><button class="btn btn-sm btn-danger">Delete</button></td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-striped order-table" style="display: none">
+              <thead>
+                <tr>
+                  <th>Customer ID</th>
+                  <th>Amount</th>
+                  <th>Paid</th>
+                </tr>
+              </thead>
+              <tbody class="orderTable">
+                <tr class="order" style="display: none;">
+                  <td class="customerID">Lorem</td>
+                  <td class="amount">ipsum</td>
+                  <td class="paid">dolor</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div><!-- /row -->
+
+            <!-- Modal popup for adding customer -->
+            <div class="modal fade" id="addCustomerModal" tabindex="-1" role="dialog" aria-labelledby="addCustomerModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add new customer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="addCustomer">
+                      <div class="form-group">
+                        <label for="businessName">Business name</label>
+                        <input type="text" class="form-control" name="businessName" aria-describedby="businessName" placeholder="Enter business name">
+                      </div>
+                      <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" name="address" aria-describedby="address" placeholder="Enter address">
+                      </div>
+                      <div class="form-group">
+                        <label for="telephone">Phone number</label>
+                        <input type="text" class="form-control" name="telephone" placeholder="Enter phone number">
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" name="email" placeholder="Enter email address">
+                      </div>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end modal -->
+
+            <!-- Modal popup for adding order -->
+            <div class="modal fade" id="addOrderModal" tabindex="-1" role="dialog" aria-labelledby="addOrderModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="addOrder">Add new order</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="addOrder">
+                      <div class="form-group">
+                        <label for="customerID">CustomerID</label>
+                        <input type="text" class="form-control" name="businessName" aria-describedby="businessName" placeholder="Enter business name">
+                      </div>
+                     <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" name="address" aria-describedby="address" placeholder="Enter address">
+                      </div>
+                      <div class="form-group">
+                        <label for="telephone">Phone number</label>
+                        <input type="text" class="form-control" name="telephone" placeholder="Enter phone number">
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" name="email" placeholder="Enter email address">
+                      </div>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                 </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
+                  </div>
+               </div>
+              </div>
+            </div><!-- end modal -->
+    
+          </div><!-- /container-fluid -->
+
+    <footer class="footer">
+        <div class="row">
+          <p class="small">Address: 973 Progress Ave <br/> Tel.: (647)098-76-54 </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="js/vendor/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/script-post.js"></script>
+  </body>
+</html>
+
