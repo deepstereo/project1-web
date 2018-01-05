@@ -37,22 +37,30 @@ function loadCustomers() {
 };
 
 function loadOrders() {
+    loadCustomersForOrders()
+}
 
+function loadOrdersWithCustomersName(myArrayCustomers) {
     var xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
+        if (myArrayCustomers != null && this.readyState == 4 && this.status == 200) {
 
             hideAllLists();
 
-            var myArray = JSON.parse(this.responseText);
+            var myArrayOrders = JSON.parse(this.responseText);
 
             if (document.querySelector(".order-table").style.display == "none" && document.querySelector(".order-table").id == "") {
-                for (var i = 0; i < myArray.length; i++) {
+                for (var i = 0; i < myArrayOrders.length; i++) {
                     document.querySelector(".main-title").innerHTML = "Orders"
-                    document.querySelector(".customerID").innerHTML = myArray[i].customerID;
-                    document.querySelector(".amount").innerHTML = myArray[i].amount;
-                    document.querySelector(".paid").innerHTML = myArray[i].isPaid;
+                    for (var j = 0; j < myArrayCustomers.length; j++) {
+                        if (myArrayOrders[i].customerID == myArrayCustomers[j]._id) {
+                            document.querySelector(".customerID").innerHTML = myArrayCustomers[j].businessName;
+                            break
+                        }
+                    }
+                    document.querySelector(".amount").innerHTML = myArrayOrders[i].amount;
+                    document.querySelector(".paid").innerHTML = myArrayOrders[i].isPaid;
                     var newRow = document.querySelector(".order").cloneNode(true);
                     newRow.style.display = "";
                     document.querySelector(".orderTable").appendChild(newRow);
@@ -69,8 +77,25 @@ function loadOrders() {
 
     xhttp.open("GET", "https://serene-eyrie-60807.herokuapp.com/orders", true);
     xhttp.send();
-};
+}
 
+function loadCustomersForOrders() {
+    var xhttp = new XMLHttpRequest();
+
+    var myArrayCustomers;
+
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+
+            myArrayCustomers = JSON.parse(this.responseText);
+
+            loadOrdersWithCustomersName(myArrayCustomers)
+        }
+    };
+
+    xhttp.open("GET", "https://serene-eyrie-60807.herokuapp.com/customers", true);
+    xhttp.send();
+}
 
 function loadProducts() {
 
