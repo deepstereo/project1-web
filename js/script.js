@@ -1,7 +1,5 @@
 function loadCustomers() {
 
-    
-
     var xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function() {
@@ -76,6 +74,40 @@ function loadCustomers() {
     xhttp.open("GET", "https://serene-eyrie-60807.herokuapp.com/orders", true);
     xhttp.send();
   };
+
+  function loadProducts() {
+
+    var xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+
+            hideAllLists();
+
+            var myArray = JSON.parse(this.responseText);
+
+            if (document.querySelector(".product-table").style.display == "none" && document.querySelector(".product-table").id == "") {
+                for (var i = 0; i < myArray.length; i++) {
+                    document.querySelector(".main-title").innerHTML = "Products"
+                    document.querySelector(".productName").innerHTML = myArray[i].productName;
+                    document.querySelector(".price").innerHTML = myArray[i].price;
+                    var newRow = document.querySelector(".product").cloneNode(true);
+                    newRow.style.display = "";
+                    document.querySelector(".productTable").appendChild(newRow);
+                    document.querySelector(".product-table").style.display = "";
+                    document.querySelector(".product-table").id = "full";
+                }
+            } else {
+                document.querySelector(".main-title").innerHTML = "Products";
+                document.querySelector(".product-table").style.display = "";
+                console.log("already there")
+            }
+        }
+    };
+
+    xhttp.open("GET", "https://serene-eyrie-60807.herokuapp.com/products", true);
+    xhttp.send();
+};
 
 
   function goHome() {
