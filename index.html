@@ -37,7 +37,7 @@
                 <a class="nav-link" href="#" onclick="loadOrders()">Orders</a>
               </li>
               <li class="nav-item" id="products">
-                <a class="nav-link" href="#">Products</a>
+                <a class="nav-link" href="#" onclick="loadProducts()">Products</a>
               </li>
             </ul>
           </div>
@@ -97,6 +97,20 @@
                   <td class="amount">ipsum</td>
                   <td class="paid">dolor</td>
                 </tr>
+              </tbody>
+            </table>
+            <table class="table table-striped product-table" style="display: none">
+              <thead>
+              <tr>
+                <th>Product name</th>
+                <th>Price</th>
+              </tr>
+              </thead>
+              <tbody class="productTable">
+              <tr class="product" style="display: none;">
+                <td class="productName">ipsum</td>
+                <td class="price">20</td>
+              </tr>
               </tbody>
             </table>
           </div>
