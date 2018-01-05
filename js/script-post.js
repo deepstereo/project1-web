@@ -34,5 +34,32 @@ window.addEventListener("load", function () {
     });
   });
 
+  window.addEventListener("load", function(){
+
+    var addProductForm = document.getElementById("addProduct");
+
+    function postProduct() {
+      var postProduct = new XMLHttpRequest();
+      var productFormData = new FormData(addProductForm);
+
+      postProduct.addEventListener("load", function(event){
+        alert("Product added!")
+      });
+
+      postProduct.addEventListener("error", function(event){
+        alert("Oups! Error adding product!")
+      });
+
+      postProduct.open("POST", "https://serene-eyrie-60807.herokuapp.com/products");
+      postProduct.send(productFormData);
+    }
+
+    addProductForm.addEventListener("submit", function(event){
+      event.preventDefault();
+      postProduct();
+    });
+
+  });
+
 
 
