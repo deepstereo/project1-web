@@ -54,7 +54,7 @@ function loadOrdersWithCustomersName(myArrayCustomers) {
                 for (var i = 0; i < myArrayOrders.length; i++) {
                     document.querySelector(".main-title").innerHTML = "Orders"
                     for (var j = 0; j < myArrayCustomers.length; j++) {
-                        if (myArrayOrders[i].customerID == myArrayCustomers[j]._id) {
+                        if (myArrayOrders[i].customerId == myArrayCustomers[j]._id) {
                             document.querySelector(".customerID").innerHTML = myArrayCustomers[j].businessName;
                             break
                         }
